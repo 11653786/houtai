@@ -8,6 +8,8 @@ import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 用户信息DAO接口
  *
@@ -20,9 +22,9 @@ public interface UserInfoDao extends CrudDao<UserInfo> {
     /**
      * 根据银行卡号获取用户信息
      *
-     * @param cardCode
+     * @param name
      * @return
      */
-    UserInfo findUserInfoByPhone(@Param("cardCode") String cardCode);
+    UserInfo findUserInfoByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
 
 }

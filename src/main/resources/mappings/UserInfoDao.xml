@@ -18,12 +18,12 @@
 	</sql>
 
 
-	<select id="findUserInfoByPhone" resultType="UserInfo">
+	<select id="findUserInfoByNameAndPhone" resultType="UserInfo">
 		SELECT
 		<include refid="userInfoColumns"/>
 		FROM user_info a
 		<include refid="userInfoJoins"/>
-		WHERE a.phone = #{phone}
+		WHERE a.name = #{name} and a.phone=#{phone}
 	</select>
     
 	<select id="get" resultType="UserInfo">

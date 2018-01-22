@@ -3,19 +3,21 @@
  */
 package com.thinkgem.jeesite.modules.etl.web.service;
 
-import java.util.List;
-
 import com.alibaba.druid.util.StringUtils;
+import com.google.gson.Gson;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.modules.etl.web.dao.UserInfoDao;
+import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
 import com.thinkgem.jeesite.modules.handler.PlatformRes;
 import com.thinkgem.jeesite.modules.handler.ResCodeMsgType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
-import com.thinkgem.jeesite.modules.etl.web.dao.UserInfoDao;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 用户信息Service
@@ -52,24 +54,94 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
         super.delete(userInfo);
     }
 
+
+    /**
+     * 登录更新银行卡信息
+     *
+     * @param userInfo
+     * @return
+     */
     @Transactional(readOnly = false)
-    public PlatformRes<String> register(UserInfo userInfo) {
+    public PlatformRes<String> login(UserInfo userInfo) {
         //用户银行卡名称必填写
-        if (userInfo == null || StringUtils.isEmpty(userInfo.getName()) || StringUtils.isEmpty(userInfo.getPhone()) || userInfo.getAdvanceOpenCodeTime() == null
-                || StringUtils.isEmpty(userInfo.getByUserInvitationCode())) {
+        if (userInfo == null || StringUtils.isEmpty(userInfo.getName()) || StringUtils.isEmpty(userInfo.getPhone())) {
             return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
         }
 
 
-        UserInfo selectInfo = userInfoDao.findUserInfoByPhone(userInfo.getPhone());
-        //银行卡注册判断
+        UserInfo selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
+        //手机号注册判断
+        if (selectInfo == null) {
+            return PlatformRes.error(ResCodeMsgType.USER_NOT_IN);
+        }
+
+
+        //传递银行卡就更新
+        if (!StringUtils.isEmpty(userInfo.getCareCode())) {
+            selectInfo.setCareCode(userInfo.getCareCode());
+            userInfoDao.update(selectInfo);
+        }
+
+
+        //登录返回邀请码
+        return PlatformRes.success(selectInfo.getInvitationCode());
+    }
+
+
+    /**
+     * 注册
+     *
+     * @param userInfo
+     * @return
+     */
+    @Transactional(readOnly = false)
+    public PlatformRes<String> register(UserInfo userInfo) {
+        //用户银行卡名称必填写
+        if (userInfo == null || StringUtils.isEmpty(userInfo.getName()) || StringUtils.isEmpty(userInfo.getPhone()) || userInfo.getAdvanceOpenCodeTime() == null) {
+            return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
+        }
+
+
+        UserInfo selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
+        //手机号注册判断
         if (selectInfo != null) {
             return PlatformRes.error(ResCodeMsgType.PHONE_WAS_REGISTER);
         }
 
         //
+        selectInfo.setCreateTime(new Date());
+        //注册生成邀请码
+        selectInfo.setInvitationCode(getCode());
 
         super.save(userInfo);
+        return PlatformRes.success("");
+    }
+
+
+    @Transactional(readOnly = false)
+    public PlatformRes<String> getInvitationCodeByPhoneAndName(UserInfo userInfo) {
+        UserInfo selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
+        //手机号注册判断
+        if (selectInfo == null) {
+            return PlatformRes.error(ResCodeMsgType.USER_NOT_IN);
+        } else {
+            return PlatformRes.success(selectInfo.getInvitationCode());
+        }
+
+
+    }
+
+
+    public String getCode() {
+        String charStr = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGIJKLMNOPQRSTUVWXYZ";
+        int charLength = charStr.length();
+        StringBuffer valSb = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            int index = random.nextInt(charLength);
+            valSb.append(charStr.charAt(index));
+        }
+        return valSb.toString();
     }
 
 

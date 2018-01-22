@@ -3,7 +3,8 @@ package com.thinkgem.jeesite.modules.handler;
 public enum ResCodeMsgType {
     SUCCESS_("0", "成功"),
     PARAMS_NOT_EMPTY("401", "参数不能为空"),
-    PHONE_WAS_REGISTER("402","手机号已被注册"),
+    USER_NOT_IN("402","用户不存在"),
+    PHONE_WAS_REGISTER("403","当前用户已被注册"),
     FAIL("501", "失败");
 
     private String code;
