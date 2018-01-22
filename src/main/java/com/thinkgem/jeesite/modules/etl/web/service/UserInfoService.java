@@ -132,8 +132,6 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
         } else {
             return PlatformRes.success(selectInfo.getInvitationCode());
         }
-
-
     }
 
 
