@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.etl.web.dao.UserInfoDao">
+    
+	<sql id="userInfoColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.care_code AS "careCode",
+		a.manager AS "manager",
+		a.phone AS "phone",
+		a.invitation_code AS "invitationCode",
+		a.by_user_invitation_code AS "byUserInvitationCode",
+		a.advance_open_code_time AS "advanceOpenCodeTime",
+		a.create_time AS "createTime"
+	</sql>
+	
+	<sql id="userInfoJoins">
+	</sql>
+
+
+	<select id="findUserInfoByPhone" resultType="UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		WHERE a.phone = #{phone}
+	</select>
+    
+	<select id="get" resultType="UserInfo">
+		SELECT 
+			<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="UserInfo">
+		SELECT 
+			<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		<where>
+			
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+			<if test="careCode != null and careCode != ''">
+				AND a.care_code = #{careCode}
+			</if>
+			<if test="manager != null and manager != ''">
+				AND a.manager = #{manager}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="invitationCode != null and invitationCode != ''">
+				AND a.invitation_code = #{invitationCode}
+			</if>
+			<if test="byUserInvitationCode != null and byUserInvitationCode != ''">
+				AND a.by_user_invitation_code = #{byUserInvitationCode}
+			</if>
+			<if test="advanceOpenCodeTime != null and advanceOpenCodeTime != ''">
+				AND a.advance_open_code_time = #{advanceOpenCodeTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="UserInfo">
+		SELECT 
+			<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO user_info(
+			id,
+			name,
+			care_code,
+			manager,
+			phone,
+			invitation_code,
+			by_user_invitation_code,
+			advance_open_code_time,
+			create_time
+		) VALUES (
+			#{id},
+			#{name},
+			#{careCode},
+			#{manager},
+			#{phone},
+			#{invitationCode},
+			#{byUserInvitationCode},
+			#{advanceOpenCodeTime},
+			#{createTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE user_info SET 	
+			name = #{name},
+			care_code = #{careCode},
+			manager = #{manager},
+			phone = #{phone},
+			invitation_code = #{invitationCode},
+			by_user_invitation_code = #{byUserInvitationCode},
+			advance_open_code_time = #{advanceOpenCodeTime},
+			create_time = #{createTime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM user_info
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
