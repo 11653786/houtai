@@ -11,6 +11,7 @@ import com.thinkgem.jeesite.modules.etl.web.dao.UserInfoDao;
 import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
 import com.thinkgem.jeesite.modules.handler.PlatformRes;
 import com.thinkgem.jeesite.modules.handler.ResCodeMsgType;
+import com.thinkgem.jeesite.util.PhoneFormatCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,6 +102,10 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
         }
 
+        if(!PhoneFormatCheckUtils.isPhoneLegal(userInfo.getPhone())){
+            return PlatformRes.error(ResCodeMsgType.PHONE_FORMATTER_ERROR);
+        }
+
 
         UserInfo selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
         //手机号注册判断
@@ -109,12 +114,12 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
         }
 
         //
-        selectInfo.setCreateTime(new Date());
+        userInfo.setCreateTime(new Date());
         //注册生成邀请码
-        selectInfo.setInvitationCode(getCode());
+        userInfo.setInvitationCode(getCode());
 
         super.save(userInfo);
-        return PlatformRes.success("");
+        return PlatformRes.success(userInfo.getInvitationCode());
     }
 
 
