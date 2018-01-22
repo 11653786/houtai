@@ -28,7 +28,7 @@
 			<li><label>姓名：</label>
 				<form:input path="name" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
-			<li><label>用户银行卡号：</label>
+			<li><label>卡号：</label>
 				<form:input path="careCode" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
 			<li><label>理财经理：</label>
@@ -37,10 +37,10 @@
 			<li><label>手机号：</label>
 				<form:input path="phone" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
-			<li><label>邀请码：</label>
+			<li><label>用户邀请码：</label>
 				<form:input path="invitationCode" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
-			<li><label>邀请人邀请码(邀请你的人的邀请码)：</label>
+			<li><label>输入邀请码：</label>
 				<form:input path="byUserInvitationCode" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
 			<li><label>预约开卡日：</label>
