@@ -102,7 +102,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
         }
 
-        if (!PhoneFormatCheckUtils.isPhoneLegal(userInfo.getPhone())) {
+        if(!PhoneFormatCheckUtils.isPhoneLegal(userInfo.getPhone())){
             return PlatformRes.error(ResCodeMsgType.PHONE_FORMATTER_ERROR);
         }
 
