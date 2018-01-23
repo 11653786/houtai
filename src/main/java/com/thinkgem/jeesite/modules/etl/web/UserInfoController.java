@@ -86,6 +86,7 @@ public class UserInfoController extends BaseController {
         //保存判断
         UserInfo selectInfo = null;
         if (userInfo.getIsNewRecord()) {
+            userInfo.setId(null);
             selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
         } else {
             selectInfo = userInfoDao.findInvitationCodeByPhoneAndNameAndId(userInfo.getId(), userInfo.getName(), userInfo.getPhone());

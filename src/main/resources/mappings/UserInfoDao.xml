@@ -34,6 +34,18 @@
 		<include refid="userInfoJoins"/>
 		WHERE a.name = #{name} and a.phone=#{phone} and a.id!=#{id}
 	</select>
+
+	<select id="findUserInfoByinvitationCode" resultType="UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		WHERE a.invitation_code =#{invitationCode}
+	</select>
+
+
+
+
     
 	<select id="get" resultType="UserInfo">
 		SELECT 

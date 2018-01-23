@@ -121,7 +121,13 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
         //
         userInfo.setCreateTime(new Date());
         //注册生成邀请码
-        userInfo.setInvitationCode(getCode());
+        String code = null;
+        while (true) {
+            code = getCode();
+            if (userInfoDao.findUserInfoByinvitationCode(code) == null)
+                break;
+        }
+        userInfo.setInvitationCode(code);
         userInfoDao.insert1(userInfo);
         return PlatformRes.success(userInfo.getInvitationCode());
     }
@@ -137,8 +143,6 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.success(selectInfo.getInvitationCode());
         }
     }
-
-
 
 
     public String getCode() {

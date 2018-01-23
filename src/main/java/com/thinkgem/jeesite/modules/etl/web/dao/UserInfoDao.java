@@ -32,4 +32,6 @@ public interface UserInfoDao extends CrudDao<UserInfo> {
 
     Integer insert1(UserInfo userInfo);
 
+    UserInfo findUserInfoByinvitationCode(@Param("invitationCode") String invitationCode);
+
 }
