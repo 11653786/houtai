@@ -47,7 +47,12 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 
     @Transactional(readOnly = false)
     public void save(UserInfo userInfo) {
-        super.save(userInfo);
+        if (userInfo.getIsNewRecord()) {
+            dao.insert(userInfo);
+        } else {
+            userInfo.preUpdate();
+            dao.update(userInfo);
+        }
     }
 
     @Transactional(readOnly = false)
@@ -102,7 +107,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
         }
 
-        if(!PhoneFormatCheckUtils.isPhoneLegal(userInfo.getPhone())){
+        if (!PhoneFormatCheckUtils.isPhoneLegal(userInfo.getPhone())) {
             return PlatformRes.error(ResCodeMsgType.PHONE_FORMATTER_ERROR);
         }
 
@@ -132,6 +137,8 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.success(selectInfo.getInvitationCode());
         }
     }
+
+
 
 
     public String getCode() {

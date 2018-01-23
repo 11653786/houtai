@@ -25,6 +25,15 @@
 		<include refid="userInfoJoins"/>
 		WHERE a.name = #{name} and a.phone=#{phone}
 	</select>
+
+
+	<select id="findInvitationCodeByPhoneAndNameAndId" resultType="UserInfo">
+		SELECT
+		<include refid="userInfoColumns"/>
+		FROM user_info a
+		<include refid="userInfoJoins"/>
+		WHERE a.name = #{name} and a.phone=#{phone} and a.id!=#{id}
+	</select>
     
 	<select id="get" resultType="UserInfo">
 		SELECT 

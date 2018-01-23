@@ -7,6 +7,7 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.etl.web.dao.UserInfoDao;
 import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
 import com.thinkgem.jeesite.modules.etl.web.service.UserInfoService;
 import com.thinkgem.jeesite.modules.handler.PlatformRes;
@@ -56,6 +57,15 @@ public class UserInfoController extends BaseController {
         return "modules/userInfo/userInfoList";
     }
 
+
+    @RequiresPermissions("userInfo:userInfo:view")
+    @RequestMapping(value = "detail")
+    public String detailList(UserInfo userInfo, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<UserInfo> page = userInfoService.findPage(new Page<UserInfo>(request, response), userInfo);
+        model.addAttribute("page", page);
+        return "modules/userInfo/detailList";
+    }
+
     @RequiresPermissions("userInfo:userInfo:view")
     @RequestMapping(value = "form")
     public String form(UserInfo userInfo, Model model) {
@@ -63,12 +73,30 @@ public class UserInfoController extends BaseController {
         return "modules/userInfo/userInfoForm";
     }
 
+    @Autowired
+    private UserInfoDao userInfoDao;
+
+
     @RequiresPermissions("userInfo:userInfo:edit")
     @RequestMapping(value = "save")
     public String save(UserInfo userInfo, Model model, RedirectAttributes redirectAttributes) {
         if (!beanValidator(model, userInfo)) {
             return form(userInfo, model);
         }
+        //保存判断
+        UserInfo selectInfo = null;
+        if (userInfo.getIsNewRecord()) {
+            selectInfo = userInfoDao.findUserInfoByNameAndPhone(userInfo.getName(), userInfo.getPhone());
+        } else {
+            selectInfo = userInfoDao.findInvitationCodeByPhoneAndNameAndId(userInfo.getId(), userInfo.getName(), userInfo.getPhone());
+        }
+
+        if (selectInfo != null) {
+            addMessage(redirectAttributes, "失败,当前用户手机号已存在");
+            return "redirect:" + Global.getAdminPath() + "/userInfo/userInfo/?repage";
+        }
+
+
         userInfoService.save(userInfo);
         addMessage(redirectAttributes, "保存用户信息成功");
         return "redirect:" + Global.getAdminPath() + "/userInfo/userInfo/?repage";
