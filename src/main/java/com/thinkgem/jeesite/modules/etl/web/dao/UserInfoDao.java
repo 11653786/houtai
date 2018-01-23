@@ -27,4 +27,7 @@ public interface UserInfoDao extends CrudDao<UserInfo> {
      */
     UserInfo findUserInfoByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
 
+
+    Integer insert1(UserInfo userInfo);
+
 }

@@ -83,30 +83,6 @@ public class UserInfoController extends BaseController {
     }
 
 
-    @RequestMapping(value = "login")
-    @ResponseBody
-    public PlatformRes<String> login(UserInfo userInfo) {
-        return userInfoService.login(userInfo);
-    }
-
-
-    @RequestMapping(value = "register")
-    @ResponseBody
-    public PlatformRes<String> register(UserInfo userInfo) {
-        return userInfoService.register(userInfo);
-    }
-
-    /**
-     * 根据名称和手机号获取邀请码
-     *
-     * @param userInfo
-     * @return
-     */
-    @RequestMapping(value = "getInvitationCode")
-    @ResponseBody
-    public PlatformRes<String> getInvitationCode(UserInfo userInfo) {
-        return userInfoService.getInvitationCodeByPhoneAndName(userInfo);
-    }
 
 
 }

@@ -112,6 +112,30 @@
 			#{createTime}
 		)
 	</insert>
+
+
+
+	<insert id="insert1">
+		INSERT INTO user_info(
+		name,
+		care_code,
+		manager,
+		phone,
+		invitation_code,
+		by_user_invitation_code,
+		advance_open_code_time,
+		create_time
+		) VALUES (
+		#{name},
+		#{careCode},
+		#{manager},
+		#{phone},
+		#{invitationCode},
+		#{byUserInvitationCode},
+		#{advanceOpenCodeTime},
+		#{createTime}
+		)
+	</insert>
 	
 	<update id="update">
 		UPDATE user_info SET 	
