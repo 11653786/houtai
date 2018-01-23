@@ -71,6 +71,20 @@
     </filter-mapping>-->
 
     <!-- SiteMesh -->
+
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>com.thinkgem.jeesite.filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+
+
     <filter>
         <filter-name>sitemeshFilter</filter-name>
         <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
