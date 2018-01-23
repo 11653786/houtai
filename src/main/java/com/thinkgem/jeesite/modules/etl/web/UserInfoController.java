@@ -69,6 +69,19 @@ public class UserInfoController extends BaseController {
     @RequiresPermissions("userInfo:userInfo:view")
     @RequestMapping(value = "form")
     public String form(UserInfo userInfo, Model model) {
+
+        if (userInfo == null || StringUtils.isBlank(userInfo.getId())) {
+            String code = null;
+            while (true) {
+                code = userInfoService.getCode();
+                if (userInfoDao.findUserInfoByinvitationCode(code) == null)
+                    break;
+            }
+
+            userInfo.setInvitationCode(code);
+        }
+
+
         model.addAttribute("userInfo", userInfo);
         return "modules/userInfo/userInfoForm";
     }
