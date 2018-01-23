@@ -15,6 +15,7 @@ public class CorsFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
 // TODO Auto-generated method stub
+        logger.info("跨域浏览器初始化~~~~~~~~~~~");
 
 
     }
