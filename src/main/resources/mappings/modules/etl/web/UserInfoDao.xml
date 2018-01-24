@@ -14,12 +14,12 @@
 	<sql id="userInfoJoins">
 	</sql>
     
-	<select id="findByNameAndCareCode" resultType="UserInfo">
+	<select id="findByCareCode" resultType="UserInfo">
 		SELECT 
 			<include refid="userInfoColumns"/>
 		FROM user_info a
 		<include refid="userInfoJoins"/>
-		WHERE a.name=#{name} and a.care_code=#{careCode}
+		WHERE a.care_code=#{careCode}
 	</select>
 
 

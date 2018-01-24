@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Param;
 @MyBatisDao
 public interface UserInfoDao extends CrudDao<UserInfo> {
 
-    public UserInfo findByNameAndCareCode(@Param("name")String name,@Param("careCode")String careCode);
+    public UserInfo findByCareCode(@Param("careCode")String careCode);
 
     UserInfo findUserInfoByinvitationCode(@Param("invitationCode") String invitationCode);
 	

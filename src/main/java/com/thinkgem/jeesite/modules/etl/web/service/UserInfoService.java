@@ -58,7 +58,7 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
 
 
 
-        UserInfo selectInfo = userInfoDao.findByNameAndCareCode(userInfo.getName(), userInfo.getCareCode());
+        UserInfo selectInfo = userInfoDao.findByCareCode(userInfo.getCareCode());
         //手机号注册判断
         if (selectInfo != null)
             return PlatformRes.error(ResCodeMsgType.USER_INFO_WAS_REGISTER);
