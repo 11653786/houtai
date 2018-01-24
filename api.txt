@@ -1,65 +1,44 @@
-注册
-47.95.114.60:8080/houtai/api/register
-{
-	//名称
-    "name": "zhangsan",
-	//手机
-    "phone":"15902936937",
-	//预约开卡日期
-    "advanceOpenCodeTime":"2018-01-23 00:00:00",
-	 //邀请人邀请码
-    "byUserInvitationCode":"a14c"
-}
 
 
-
-//返回信息
-{
-    "code": "0",
-    "message": "成功",
-	//邀请码
-    "data": "OvZv"
-}
-
-登录
-47.95.114.60:8080/houtai/api/login
-
-
-{
-   
-    "name": "zhangsan",
-    "phone":"15902936931",
-	//卡号,传递就修改当前用户卡号,不传不修改
-    "careCode":"114"
-}
-
-
-
-返回参数
-{
-    "code": "0",
-    "message": "成功",
-	//登录成功返回当前邀请码
-    "data": "v27T"
-}
-
-
-根据名称和手机获取邀请码
-47.95.114.60:8080/houtai/api/getInvitationCode
-
-
+邀请人注册
+47.95.114.60::8080/houtai/api/register
 {
    //名称
     "name": "zhangsan",
-	//手机
-    "phone":"15902936931"
+	//卡号
+    "careCode":"621811111111111111",
+	//经理名称，非必填
+    "manager":"张三经理"
 }
 
+//返回参数
 {
     "code": "0",
     "message": "成功",
-	//邀请码
-    "data": "v27T"
+	//邀请人邀请码
+    "data": "5IMK"
 }
 
 
+微信用户通过分享预约开卡
+47.95.114.60::8080/houtai/wechatRegister
+
+{
+	//预约开卡用户名称
+    "name": "lisi",
+	//邀请人邀请码
+    "byUserInvitationCode":"5IMK",
+	//手机号
+    "phone":"15912312312",
+	//预约开卡日期
+    "advanceOpenCodeTime":"2018-01-24 00:00:00"
+}
+
+
+
+//返回参数
+{
+    "code": "0",
+    "message": "成功",
+    "data": ""
+}

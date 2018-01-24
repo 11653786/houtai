@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>用户信息保存成功管理</title>
+	<title>用户信息管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -19,7 +19,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/etl.web/userInfo/">用户信息保存成功列表</a></li>
-		<shiro:hasPermission name="etl.web:userInfo:edit"><li><a href="${ctx}/etl.web/userInfo/form">用户信息保存成功添加</a></li></shiro:hasPermission>
+		<%--<shiro:hasPermission name="etl.web:userInfo:edit"><li><a href="${ctx}/etl.web/userInfo/form">用户信息保存成功添加</a></li></shiro:hasPermission>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="userInfo" action="${ctx}/etl.web/userInfo/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -79,8 +79,9 @@
 					<fmt:formatDate value="${userInfo.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="etl.web:userInfo:edit"><td>
-    				<a href="${ctx}/etl.web/userInfo/form?id=${userInfo.id}">修改</a>
-					<a href="${ctx}/etl.web/userInfo/delete?id=${userInfo.id}" onclick="return confirmx('确认要删除该用户信息保存成功吗？', this.href)">删除</a>
+    				<%--<a href="${ctx}/etl.web/userInfo/form?id=${userInfo.id}">修改</a>--%>
+						<a href="${ctx}/etl.web/userInfo/detail?byUserInvitationCode=${userInfo.invitationCode}">查看邀请人</a>
+					<%--<a href="${ctx}/etl.web/userInfo/delete?id=${userInfo.id}" onclick="return confirmx('确认要删除该用户信息保存成功吗？', this.href)">删除</a>--%>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

@@ -6,6 +6,8 @@ package com.thinkgem.jeesite.modules.etl.web.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thinkgem.jeesite.modules.etl.web.entity.UserByInfo;
+import com.thinkgem.jeesite.modules.etl.web.service.UserByInfoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ public class UserInfoController extends BaseController {
 
 	@Autowired
 	private UserInfoService userInfoService;
+	@Autowired
+	private UserByInfoService userByInfoService;
 	
 	@ModelAttribute
 	public UserInfo get(@RequestParam(required=false) String id) {
@@ -59,6 +63,18 @@ public class UserInfoController extends BaseController {
 	public String form(UserInfo userInfo, Model model) {
 		model.addAttribute("userInfo", userInfo);
 		return "modules/etl.web/userInfoForm";
+	}
+
+
+
+
+
+	@RequiresPermissions("etl.web:userInfo:view")
+	@RequestMapping(value = "detail")
+	public String list(UserByInfo userByInfo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<UserByInfo> page = userByInfoService.findPage(new Page<UserByInfo>(request, response), userByInfo);
+		model.addAttribute("page", page);
+		return "modules/etl.web/userByInfoList";
 	}
 
 	@RequiresPermissions("etl.web:userInfo:edit")

@@ -41,6 +41,10 @@
 			<if test="name != null and name != ''">
 				AND a.name = #{name}
 			</if>
+
+			<if test="byUserInvitationCode != null and byUserInvitationCode != ''">
+				AND a.by_user_invitation_code = #{byUserInvitationCode}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
