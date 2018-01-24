@@ -1,6 +1,8 @@
 package com.thinkgem.jeesite;
 
+import com.thinkgem.jeesite.modules.etl.web.entity.UserByInfo;
 import com.thinkgem.jeesite.modules.etl.web.entity.UserInfo;
+import com.thinkgem.jeesite.modules.etl.web.service.UserByInfoService;
 import com.thinkgem.jeesite.modules.etl.web.service.UserInfoService;
 import com.thinkgem.jeesite.modules.handler.PlatformRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,14 @@ public class ApiController {
 
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private UserByInfoService userByInfoService;
 
 
-    @RequestMapping(value = "login")
+    @RequestMapping(value = "wechatRegister")
     @ResponseBody
-    public PlatformRes<String> login(@RequestBody UserInfo userInfo) {
-        return userInfoService.login(userInfo);
+    public PlatformRes<String> login(@RequestBody UserByInfo userByInfo) {
+        return userByInfoService.register(userByInfo);
     }
 
 
@@ -34,16 +38,5 @@ public class ApiController {
         return userInfoService.register(userInfo);
     }
 
-    /**
-     * 根据名称和手机号获取邀请码
-     *
-     * @param userInfo
-     * @return
-     */
-    @RequestMapping(value = "getInvitationCode")
-    @ResponseBody
-    public PlatformRes<String> getInvitationCode(@RequestBody UserInfo userInfo) {
-        return userInfoService.getInvitationCodeByPhoneAndName(userInfo);
-    }
 
 }

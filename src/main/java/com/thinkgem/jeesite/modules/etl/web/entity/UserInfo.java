@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
- * 用户信息Entity
+ * 用户信息保存成功Entity
  * @author yt
- * @version 2018-01-22
+ * @version 2018-01-24
  */
 public class UserInfo extends DataEntity<UserInfo> {
 	
@@ -20,10 +20,7 @@ public class UserInfo extends DataEntity<UserInfo> {
 	private String name;		// 姓名
 	private String careCode;		// 用户银行卡号
 	private String manager;		// 理财经理
-	private String phone;		// 手机号
 	private String invitationCode;		// 邀请码
-	private String byUserInvitationCode;		// 邀请人邀请码(邀请你的人的邀请码)
-	private Date advanceOpenCodeTime;		// 预约开卡日
 	private Date createTime;		// 创建时间
 	
 	public UserInfo() {
@@ -61,15 +58,6 @@ public class UserInfo extends DataEntity<UserInfo> {
 		this.manager = manager;
 	}
 	
-	@Length(min=0, max=50, message="手机号长度必须介于 0 和 50 之间")
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	
 	@Length(min=0, max=50, message="邀请码长度必须介于 0 和 50 之间")
 	public String getInvitationCode() {
 		return invitationCode;
@@ -77,24 +65,6 @@ public class UserInfo extends DataEntity<UserInfo> {
 
 	public void setInvitationCode(String invitationCode) {
 		this.invitationCode = invitationCode;
-	}
-	
-	@Length(min=0, max=50, message="邀请人邀请码(邀请你的人的邀请码)长度必须介于 0 和 50 之间")
-	public String getByUserInvitationCode() {
-		return byUserInvitationCode;
-	}
-
-	public void setByUserInvitationCode(String byUserInvitationCode) {
-		this.byUserInvitationCode = byUserInvitationCode;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getAdvanceOpenCodeTime() {
-		return advanceOpenCodeTime;
-	}
-
-	public void setAdvanceOpenCodeTime(Date advanceOpenCodeTime) {
-		this.advanceOpenCodeTime = advanceOpenCodeTime;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

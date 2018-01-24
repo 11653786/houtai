@@ -7,33 +7,21 @@
 		a.name AS "name",
 		a.care_code AS "careCode",
 		a.manager AS "manager",
-		a.phone AS "phone",
 		a.invitation_code AS "invitationCode",
-		a.by_user_invitation_code AS "byUserInvitationCode",
-		a.advance_open_code_time AS "advanceOpenCodeTime",
 		a.create_time AS "createTime"
 	</sql>
 	
 	<sql id="userInfoJoins">
 	</sql>
-
-
-	<select id="findUserInfoByNameAndPhone" resultType="UserInfo">
-		SELECT
-		<include refid="userInfoColumns"/>
+    
+	<select id="findByNameAndCareCode" resultType="UserInfo">
+		SELECT 
+			<include refid="userInfoColumns"/>
 		FROM user_info a
 		<include refid="userInfoJoins"/>
-		WHERE a.name = #{name} and a.phone=#{phone}
+		WHERE a.name=#{name} and a.care_code=#{careCode}
 	</select>
 
-
-	<select id="findInvitationCodeByPhoneAndNameAndId" resultType="UserInfo">
-		SELECT
-		<include refid="userInfoColumns"/>
-		FROM user_info a
-		<include refid="userInfoJoins"/>
-		WHERE a.name = #{name} and a.phone=#{phone} and a.id!=#{id}
-	</select>
 
 	<select id="findUserInfoByinvitationCode" resultType="UserInfo">
 		SELECT
@@ -44,12 +32,9 @@
 	</select>
 
 
-
-
-    
 	<select id="get" resultType="UserInfo">
-		SELECT 
-			<include refid="userInfoColumns"/>
+		SELECT
+		<include refid="userInfoColumns"/>
 		FROM user_info a
 		<include refid="userInfoJoins"/>
 		WHERE a.id = #{id}
@@ -62,6 +47,9 @@
 		<include refid="userInfoJoins"/>
 		<where>
 			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
 			<if test="name != null and name != ''">
 				AND a.name = #{name}
 			</if>
@@ -71,17 +59,8 @@
 			<if test="manager != null and manager != ''">
 				AND a.manager = #{manager}
 			</if>
-			<if test="phone != null and phone != ''">
-				AND a.phone = #{phone}
-			</if>
 			<if test="invitationCode != null and invitationCode != ''">
 				AND a.invitation_code = #{invitationCode}
-			</if>
-			<if test="byUserInvitationCode != null and byUserInvitationCode != ''">
-				AND a.by_user_invitation_code = #{byUserInvitationCode}
-			</if>
-			<if test="advanceOpenCodeTime != null and advanceOpenCodeTime != ''">
-				AND a.advance_open_code_time = #{advanceOpenCodeTime}
 			</if>
 		</where>
 		<choose>
@@ -112,49 +91,17 @@
 	
 	<insert id="insert">
 		INSERT INTO user_info(
-			id,
 			name,
 			care_code,
 			manager,
-			phone,
 			invitation_code,
-			by_user_invitation_code,
-			advance_open_code_time,
 			create_time
 		) VALUES (
-			#{id},
 			#{name},
 			#{careCode},
 			#{manager},
-			#{phone},
 			#{invitationCode},
-			#{byUserInvitationCode},
-			#{advanceOpenCodeTime},
 			#{createTime}
-		)
-	</insert>
-
-
-
-	<insert id="insert1">
-		INSERT INTO user_info(
-		name,
-		care_code,
-		manager,
-		phone,
-		invitation_code,
-		by_user_invitation_code,
-		advance_open_code_time,
-		create_time
-		) VALUES (
-		#{name},
-		#{careCode},
-		#{manager},
-		#{phone},
-		#{invitationCode},
-		#{byUserInvitationCode},
-		#{advanceOpenCodeTime},
-		#{createTime}
 		)
 	</insert>
 	
@@ -163,10 +110,7 @@
 			name = #{name},
 			care_code = #{careCode},
 			manager = #{manager},
-			phone = #{phone},
 			invitation_code = #{invitationCode},
-			by_user_invitation_code = #{byUserInvitationCode},
-			advance_open_code_time = #{advanceOpenCodeTime},
 			create_time = #{createTime}
 		WHERE id = #{id}
 	</update>

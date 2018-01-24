@@ -4,7 +4,8 @@ public enum ResCodeMsgType {
     SUCCESS_("0", "成功"),
     PARAMS_NOT_EMPTY("401", "参数不能为空"),
     USER_NOT_IN("402","用户不存在"),
-    PHONE_WAS_REGISTER("403","当前用户已被注册"),
+    USER_INFO_WAS_REGISTER("403","当前用户已被注册"),
+    PHONE_WAS_REGISTER("403","当前手机号已预约"),
     PHONE_FORMATTER_ERROR("405","手机号码不正确"),
     FAIL("501", "失败");
 
