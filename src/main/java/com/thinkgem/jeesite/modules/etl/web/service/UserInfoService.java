@@ -81,10 +81,18 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
             return PlatformRes.error(ResCodeMsgType.USER_NOT_IN);
         }
 
+        if (!StringUtils.isEmpty(userInfo.getManager())) {
+            selectInfo.setManager(userInfo.getManager());
+        }
+
 
         //传递银行卡就更新
         if (!StringUtils.isEmpty(userInfo.getCareCode())) {
             selectInfo.setCareCode(userInfo.getCareCode());
+
+        }
+
+        if (!StringUtils.isEmpty(userInfo.getCareCode()) || !StringUtils.isEmpty(userInfo.getManager())) {
             userInfoDao.update(selectInfo);
         }
 
