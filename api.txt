@@ -1,7 +1,7 @@
 
 
 邀请人注册
-47.95.114.60::8080/houtai/api/register
+http://121.41.117.140:8080/houtai/api/register
 {
    //名称
     "name": "zhangsan",
@@ -21,7 +21,7 @@
 
 
 微信用户通过分享预约开卡
-47.95.114.60::8080/houtai/wechatRegister
+http://121.41.117.140:8080/houtai/wechatRegister
 
 {
 	//预约开卡用户名称
