@@ -1,7 +1,7 @@
 
 
 邀请人注册
-http://121.41.117.140:8080/houtai/api/register
+http://wanbcg.com/houtai/api/register
 {
    //名称
     "name": "zhangsan",
@@ -21,7 +21,7 @@ http://121.41.117.140:8080/houtai/api/register
 
 
 微信用户通过分享预约开卡
-http://121.41.117.140:8080/houtai/wechatRegister
+http://wanbcg.com/houtai/wechatRegister
 
 {
 	//预约开卡用户名称
@@ -59,3 +59,8 @@ http://121.41.117.140:8080/houtai/api/getCode
 	//邀请人邀请码
     "data": "5IMK"
 }
+
+
+
+http://121.41.117.140:8080/houtai/api/wx/share?url=621811111111111111
+

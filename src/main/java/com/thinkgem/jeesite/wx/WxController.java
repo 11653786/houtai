@@ -72,7 +72,7 @@ public class WxController {
      */
     @RequestMapping(value = "/share")
     @ResponseBody
-    public PlatformRes<String> share(@RequestBody String url) throws IOException {
+    public PlatformRes<String> share(String url) throws IOException {
         return wxService.getWxJsConfig(url);
 
     }
