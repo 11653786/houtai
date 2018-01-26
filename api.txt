@@ -42,3 +42,20 @@ http://121.41.117.140:8080/houtai/wechatRegister
     "message": "成功",
     "data": ""
 }
+
+
+http://121.41.117.140:8080/houtai/api/getCode
+//请求参数
+
+{
+     //银行卡号
+    "careCode":"621811111111111111"
+}
+
+//返回参数
+{
+    "code": "0",
+    "message": "成功",
+	//邀请人邀请码
+    "data": "5IMK"
+}
