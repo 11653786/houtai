@@ -61,6 +61,13 @@ http://121.41.117.140:8080/houtai/api/getCode
 }
 
 
-微信分享
+微信分享,url是分享url
 http://121.41.117.140:8080/houtai/api/wx/share?url=621811111111111111
+
+//返回參數
+{
+    "code": "0",
+    "message": "成功",
+    "data": "{\"appId\":\"wx6e3538693858f28a\",\"jsapi_ticket\":\"bxLdikRXVbTPdHSM05e5u5w0ASEtw_Ve7xrXZXF9Lpcvyt_WGbJR3HMs4xdMskwAPKPG7kiVEWOe5AkiU2khTQ\",\"noncestr\":\"b6efb740ebbd4807b0dc2a9036eafb54\",\"sign\":\"6f3b0a16e5d25c71f1cb4084e21bc1405846a164\",\"timestamp\":\"1516953795426\",\"url\":\"https:www.baidu.com\"}"
+}
 
