@@ -112,7 +112,7 @@ public class WxService {
         AccessToken token = new AccessToken();
         token.setInTime(now);
         token.setInOutTime(getTwoHoursDate(now));
-        token.setTokenType(0);
+        token.setTokenType(1);
         token.setAccess_token(tokenInfo.getTicket());
         accessTokenMapper.insert(token);
         return PlatformRes.success(tokenInfo.getTicket());
