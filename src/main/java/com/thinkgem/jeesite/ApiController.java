@@ -38,5 +38,11 @@ public class ApiController {
         return userInfoService.register(userInfo);
     }
 
+    @RequestMapping(value = "getCode")
+    @ResponseBody
+    public PlatformRes<String> getCode(@RequestBody UserInfo userInfo) {
+        return userInfoService.getCode(userInfo);
+    }
+
 
 }

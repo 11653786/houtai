@@ -44,6 +44,18 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
      * @param userInfo
      * @return
      */
+    @Transactional(readOnly = false)
+    public PlatformRes<String> getCode(UserInfo userInfo) {
+        String careCode = userInfo.getCareCode();
+        UserInfo selectUserInfo = userInfoDao.findByCareCode(careCode);
+        if (selectUserInfo != null) {
+            return PlatformRes.success(selectUserInfo.getInvitationCode());
+        } else {
+            return PlatformRes.error("503", "银行卡不正确");
+        }
+    }
+
+
     /**
      * 注册
      *
@@ -55,7 +67,6 @@ public class UserInfoService extends CrudService<UserInfoDao, UserInfo> {
         //用户银行卡名称必填写
         if (userInfo == null || StringUtils.isEmpty(userInfo.getName()) || StringUtils.isEmpty(userInfo.getCareCode()))
             return PlatformRes.error(ResCodeMsgType.PARAMS_NOT_EMPTY);
-
 
 
         UserInfo selectInfo = userInfoDao.findByCareCode(userInfo.getCareCode());
